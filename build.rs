@@ -81,10 +81,11 @@ fn main() {
         cmake_build::try_clone_repo().expect("Failed to clone repository");
 
         let dst = cmake_build::try_build();
-        println!("cargo:rustc-link-search=native={}", dst.display());
         if cfg!(target_os = "windows") {
+            println!("cargo:rustc-link-search=native={}/lib", dst.display());
             println!("cargo:rustc-link-lib=OpenAL32");
         } else {
+            println!("cargo:rustc-link-search=native={}", dst.display());
             println!("cargo:rustc-link-lib=openal");
         }
     }
