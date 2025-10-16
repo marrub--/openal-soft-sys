@@ -83,7 +83,7 @@ fn main() {
         let dst = cmake_build::try_build();
         println!("cargo:rustc-link-search=native={}/lib", dst.display());
     }
-    if cfg!(target_os = "windows") {
+    if cfg!(all(target_os = "windows", target_env = "msvc")) {
         println!("cargo:rustc-link-lib=OpenAL32");
     } else {
         println!("cargo:rustc-link-lib=openal");
